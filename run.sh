@@ -4,22 +4,22 @@
 #
 # run.sh : LQレギュレータをを用いて倒立振子を動作させる
 #
-# 動作の概要は次の通り。
-# >>> cu ........ 各種センサの取得および制御量の反映
+# 動作の概要は次の通り（318行目から391行目）。
+# >>> cu ........ （319行目）各種センサの取得および制御量の反映
 # ^    v
-# ^   kalfltr ... カルマンフィルタを用いた角度のノイズ除去
+# ^   kalfltr ... （338行目）カルマンフィルタを用いた角度のノイズ除去
 # ^    v
-# ^   kalfltr ... カルマンフィルタを用いたシステム全体のノイズ除去
+# ^   kalfltr ... （368行目）カルマンフィルタを用いたシステム全体のノイズ除去
 # ^    v
-# ^<< lqreg.py .. 最適制御による制御量の計算
+# ^<< lqreg ..... （376行目）最適制御による制御量の計算
 #
-# Written by Shinichi Yanagido (s.yanagido@gmail.com) on 2020-07-17
+# Written by Shinichi Yanagido (s.yanagido@gmail.com) on 2021-03-14
 #
 ######################################################################
 
 
 ######################################################################
-# Set Parameters
+# Set Default Parameters
 ######################################################################
 
 q='1 1 1000 10'
@@ -373,8 +373,8 @@ ptw cut -d ' ' -f -5                                          |
 # 1:dt 2:est-rad 3:est-pend-rad/sec 4:est-wheel-rad           #
 # 5:est-wheel-rad/sec                                         #
 #--- 制御量の計算                                             #
-ptw lqreg.py -v -A "$A" -B "$B" -q "$q" -r "$r" -L 0.00851516 \
-             -o $Tmp/pipe_lqreg_init                          |
+ptw lqreg -A "$A" -B "$B" -q "$q" -r "$r" -L 0.00851516       \
+          -o $Tmp/pipe_lqreg_init                             |
 # 1:dt 2:voltage                                              #
 ptw awk '                                                     #
   BEGIN{                                                      #
